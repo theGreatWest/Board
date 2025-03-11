@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -25,4 +27,8 @@ public class Post {
     @Column(columnDefinition = "TEXT") // 이렇게 지정해 주면 된다.
     private String content;
     private LocalDateTime postedAt;
+
+    // 이 변수는 DB 의 컬럼이 아니라고 꼭 명시해 줘야 한다.
+    @Transient
+    private List<Reply> replies = List.of();
 }
