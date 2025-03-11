@@ -1,7 +1,7 @@
 package com.example.board.controller;
 
 import com.example.board.domain.Reply;
-import com.example.board.model.ReplyRequest;
+import com.example.board.model.request.ReplyRequest;
 import com.example.board.service.ReplyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

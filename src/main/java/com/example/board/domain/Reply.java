@@ -1,13 +1,8 @@
 package com.example.board.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -21,7 +16,12 @@ public class Reply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long postId;
+    @ManyToOne
+    @JsonIgnore
+    @ToString.Exclude
+    private Post post;
+//    private Long postId;
+
     private String userName;
     private String password;
     private String status;

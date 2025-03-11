@@ -1,25 +1,38 @@
 package com.example.board.service;
 
 import com.example.board.domain.Post;
-import com.example.board.model.PostRequest;
-import com.example.board.model.PostViewRequest;
+import com.example.board.model.request.PostRequest;
+import com.example.board.model.request.PostViewRequest;
+import com.example.board.repository.BoardRepository;
 import com.example.board.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
+    private final BoardRepository boardRepository;
+
     private final ReplyService replyService;
 
     public Post create(PostRequest request){
+        var optionalBoard = boardRepository.findById(request.getBoardId());
+
+        if(optionalBoard.isEmpty()){
+            throw new RuntimeException("일치하는 보드가 없습니다.");
+        }
+
+//        var board = boardRepository.findById(request.getBoardId()).get(); // 원칙은 얘가 있는지 없는지 확인해야 함
+
         Post entity = Post.builder()
-                .boardId(1L) // 임시 고정
+//                .boardId(request.getBoardId()) // 임시 고정
+//                .board(board) // 객체 전달
+                .board(optionalBoard.get())
+
                 .userName(request.getUserName())
                 .password(request.getPassword())
                 .email(request.getEmail())
@@ -46,8 +59,9 @@ public class PostService {
                     }
                     // entity 존재 O
                     // 답변 글도 같이 내려오게
-                    var replies = replyService.findAllByPostId(request.getId());
-                    item.setReplies(replies);
+//                    var replies = replyService.findAllByPostId(request.getId());
+//                    item.setReplyList(replies);
+                    // mappedby 를 통해 자동으로 값을 가져오기 때문에 필요 없다.
 
                     return item;
                 })

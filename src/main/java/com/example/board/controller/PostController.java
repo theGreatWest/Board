@@ -1,8 +1,8 @@
 package com.example.board.controller;
 
 import com.example.board.domain.Post;
-import com.example.board.model.PostRequest;
-import com.example.board.model.PostViewRequest;
+import com.example.board.model.request.PostRequest;
+import com.example.board.model.request.PostViewRequest;
 import com.example.board.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
